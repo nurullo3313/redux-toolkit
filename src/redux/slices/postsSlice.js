@@ -3,7 +3,9 @@ import axios from "axios";
 
 
 const initialState={
-    posts:[]
+    posts:[],
+    loading: false,
+    error : null
 }
 
 export const  getPosts = createAsyncThunk(
@@ -48,11 +50,21 @@ export const postsSlice = createSlice({
         builder
         .addCase(getPosts.fulfilled,(state, action)=>{
             console.log("loaded!"),
-             state.posts = action.payload;
+             state.posts = action.payload,
+             state.loading = false
+             state.error = null
 
         })
-        .addCase(getPosts.pending,(_)=>console.log("loading..."))
-        .addCase(getPosts.rejected,(_)=>console.log("error"))
+        .addCase(getPosts.pending,(state)=>{
+            console.log("loading...")
+            state.loading = true
+        })
+        .addCase(getPosts.rejected,(state, action)=>{
+            console.log("error")
+            state.error =action.payload
+            state.loading = false
+        })
+        
 
 
     }

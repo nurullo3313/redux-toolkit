@@ -5,8 +5,10 @@ import  {getPosts}  from '../redux/slices/postsSlice'
 
 const Posts = () => {
     const dispatch = useDispatch()
-    const posts = useSelector((state)=>state.post.posts)
-    console.log(posts)
+    const {posts ,loading ,error } = useSelector((state)=>state.post)
+    console.log(error)
+    
+   
     return (
         <div>
             <button
@@ -16,12 +18,14 @@ const Posts = () => {
             >
                 Get Posts
             </button>
-            <div className='space-y-2'>
+            <div className='space-y-2 w-full'>
                 {
-                    posts.map((item)=>(
+                     loading ? <h1 className='text-center text-blue-600'>Lodading...</h1> :
+                     posts.map((item)=>(
                         <PostItem item={item} key={item.id}/>
                     ))
                 }
+                {error!=null && error }
             </div>
         </div>
     )
