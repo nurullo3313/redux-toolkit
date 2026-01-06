@@ -19,11 +19,10 @@ export const todoSlice = createSlice({
         toggleComplatedTodo : (state, action)=>{
             const toggleTodo = state.todos.find((todo)=>todo.id === action.payload)
             toggleTodo.complated = !toggleTodo.complated
-
         },
         deletdTodo: (state , action)=>{
             state.todos = state.todos.filter((todo)=> todo.id !== action.payload)
-        }
+        },
    } 
 })
 
